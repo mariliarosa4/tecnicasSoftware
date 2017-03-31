@@ -12,14 +12,14 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author DuDu
+ * @author Marilia Rosa
  */
-public class registroprof extends javax.swing.JFrame {
+public class registrarProfessor extends javax.swing.JFrame {
 
     /**
-     * Creates new form registroprof
+     * Creates new form registrarProfessor
      */
-    public registroprof() {
+    public registrarProfessor() {
         initComponents();
     }
 
@@ -185,8 +185,8 @@ public class registroprof extends javax.swing.JFrame {
     }//GEN-LAST:event_cpfActionPerformed
 
     private void enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarActionPerformed
-        // TODO add your handling code here:
-        System.out.println("rodou");
+        
+        System.out.println("Salvando dados");
          try {
         Class.forName("com.mysql.jdbc.Driver");
         
@@ -194,9 +194,9 @@ public class registroprof extends javax.swing.JFrame {
         String usuario = "root"; 
         String senha  = "123456"; 
         
-        Connection connection 
-                = DriverManager.getConnection(url, usuario, senha);
-        
+        Connection connection =null;
+             connection= DriverManager.getConnection(url, usuario, senha);
+        if (connection!=null){
         PreparedStatement c1 = connection.prepareStatement(
         "INSERT INTO professor (`nome_professor`,  `email`,  `cpf_professor`, `matricula`, `telefone`)"+
         " VALUES (?, ?, ?, ?, ?);");
@@ -208,7 +208,8 @@ public class registroprof extends javax.swing.JFrame {
         c1.setString(5, telefone.getText() );
         c1.executeUpdate();
         
-        connection.close();        
+        connection.close();    
+        }
         } catch (Exception e) {
             e.printStackTrace();
         }   
